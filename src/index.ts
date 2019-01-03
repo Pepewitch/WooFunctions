@@ -24,4 +24,14 @@ app.get('/woo/*', async (req, res) => {
   return res.status(200).send(JSON.parse(result.toJSON().body));
 });
 
-export const hello = functions.https.onRequest(app);
+app.post('/woo/*', async (req, res) => {
+  const result = await WooCommerce.postAsync(req.url.slice(5) , req.body);
+  return res.status(200).send(JSON.parse(result.toJSON().body));
+});
+
+app.put('/woo/*', async (req, res) => {
+  const result = await WooCommerce.putAsync(req.url.slice(5) , req.body);
+  return res.status(200).send(JSON.parse(result.toJSON().body));
+});
+
+export const shop = functions.https.onRequest(app);
